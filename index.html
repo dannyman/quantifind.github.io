@@ -1,10 +1,66 @@
+---
+
+---
 <!DOCTYPE HTML>
 <html lang="en-US">
 <head>
   <meta charset="UTF-8">
-  <title>QUANTIFIND</title>
+  <title>Quantifind - The Knowledge to Act</title>
+  <link rel="stylesheet" href="/css/normalize.css"></link>
+  <link rel="stylesheet" href="/css/proxima.css"></link>
+  <link rel="stylesheet" href="/css/style.css"></link>
 </head>
 <body>
-	<h1>QUANTIFIND</h1>
+	<header>
+		<h1>Quantifind - The Knowledge to Act</h1>
+		<ul>
+			<li><a href="#where-we-are">Where We Are</a></li>
+			<li><a href="#who-we-are">Who We Are</a></li>
+			<li><a href="#work-with-us">Work With Us</a></li>
+		</ul>
+		<ul>
+			<li><a href="https://q.quantifind.com">Customer Login</a></li>
+			<li><a href="#who-we-are">Tech Blog</a></li>
+		</ul>
+	</header>
+	<section>
+		<a name="where-we-are"></a>
+	</section>
+	<section>
+		<a name="who-we-are"></a>
+		{% for post in site.categories.who-we-are limit:1 %}
+			{{ post.content }}
+		{% endfor %}
+	</section>
+	<section>
+		<a name="work-with-us"></a>
+		{% for post in site.categories.work-with-us limit:1 %}
+			{{ post.content }}
+		{% endfor %}
+		
+		Current Openings:
+		<ul>
+		{% for post in site.categories.role %}
+			<li><a href="#{{post.id}}">{{ post.title}}</a></li>
+		{% endfor %}
+		</ul>
+		{% for post in site.categories.coming-soon limit:1 %}
+			{{ post.content }}
+		{% endfor %}
+		
+		{% for post in site.categories.role %}
+			<article>
+				<header>
+					<a name="{{post.id}}"></a>
+					<h3>{{ post.title}}</h3>
+					<p>Menlo Park, CA Headquarters</p>
+				</header>
+				{{ post.content }}
+			</article>
+		{% endfor %}
+	</section>
+	<footer>
+		Copyright © 2013 Quantifind, Inc. All Rights Reserved
+	</footer>
 </body>
 </head>
