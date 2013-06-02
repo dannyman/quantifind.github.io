@@ -1,8 +1,104 @@
 body {
 	font-family: "proxima-nova", san-serif;
 	font-size:16px;
+	background-image: url(/images/dots.png);
+	padding-left:288px;
+	background-attachment:fixed;
 }
+
+body > header {
+	position:fixed;
+	top:0;
+	left:0;
+	width:290px;
+	height:100%;
+}
+
 
 abbr.region{
 	border-bottom:none;
+}
+
+
+h1 span {
+	display:block;
+	background-position:center;
+	background-repeat:no-repeat;
+}
+
+h1 span:nth-child(1) {
+	background-image: url(/images/quantifind.png);
+}
+h1 span:nth-child(2) {
+	background-image: url(/images/knowledge.png);
+}
+
+nav ul{
+	list-style:none;
+}
+nav a:active, nav a:hover, nav a:link{
+	text-decoration:none;
+}
+nav ul li{
+	background-color:#414141;
+	width:170px;
+	margin-bottom:8px;
+	text-align:center;
+	padding:6px;
+	box-shadow:0 3px 10px #111;
+	text-shadow: 1px 1px 3px #111;
+	border:1px solid #444;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+nav ul li a{
+	text-transform: uppercase;
+	color:#CACACA;
+	text-decoration:none;
+	font-size:10px;
+}
+
+
+.content{
+	width:720px;
+	padding-top:750px;
+}
+
+section {
+	background-color:#F4F4F3;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	color:#766865;
+	padding:35px 50px 35px 35px;
+	margin-bottom:100px;
+	font-size:16px;
+	font-weight: 100;
+	line-height: 22px;
+}
+section strong{
+	color:#000;
+}
+section.where-we-are{
+	background-color:transparent;
+	position:fixed;
+	top:1px;
+	left:265px;
+	z-index:-1;
+}
+section.where-we-are .vcard{
+	position: relative;
+	top: -175px;
+	color:#999;
+}
+section.where-we-are .vcard .org{
+	color:#8CC558;
+}
+
+
+
+
+.ir{
+	text-indent:-1000px
 }

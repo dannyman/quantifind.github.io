@@ -12,65 +12,73 @@
 </head>
 <body>
 	<header>
-		<h1>Quantifind - The Knowledge to Act</h1>
-		<ul>
-			<li><a href="#where-we-are">Where We Are</a></li>
-			<li><a href="#who-we-are">Who We Are</a></li>
-			<li><a href="#work-with-us">Work With Us</a></li>
-		</ul>
+		<h1 class="ir">
+			<span>Quantifind</span>
+			<span>The Knowledge to Act</span>
+		</h1>
+		<nav>
+			<ul>
+				<li><a href="#where-we-are">Where We Are</a></li>
+				<li><a href="#who-we-are">Who We Are</a></li>
+				<li><a href="#work-with-us">Work With Us</a></li>
+			</ul>
+		</nav>
 		<ul>
 			<li><a href="https://q.quantifind.com">Customer Login</a></li>
 			<li><a href="#who-we-are">Tech Blog</a></li>
 		</ul>
 	</header>
-	<section>
-		<a name="where-we-are"></a>
-		<div class="vcard">
-		<p class="org">Quantifind<p>
-		<p class="adr">
-			<span class="street-address">100 Middlefield Road</span><br>
-			<span class="street-address">Suite 200</span><br>
-			<span class="locality">Menlo Park,</span> <abbr class="region" title="California">CA</abbr> <span class="postal-code">94025</span>
-		</p>
-		<p class="email">
-			<a href="mailto:info@quantifind.com">info@quantifind.com</a><br/>
-			<a target="_BLANK" href="https://maps.google.com/maps?q=100+Middlefield+Road+Menlo+Park,+CA+94025">Google Map</a>
-		</p>
-		</div>
-	</section>
-	<section>
-		<a name="who-we-are"></a>
-		{% for post in site.categories.who-we-are limit:1 %}
-			{{ post.content }}
-		{% endfor %}
-	</section>
-	<section>
-		<a name="work-with-us"></a>
-		{% for post in site.categories.work-with-us limit:1 %}
-			{{ post.content }}
-		{% endfor %}
-		
-		Current Openings:
-		<ul>
-		{% for post in site.categories.role %}
-			<li><a href="#{{post.id}}">{{ post.title}}</a></li>
-		{% endfor %}
-		</ul>
-		{% for post in site.categories.coming-soon limit:1 %}
-			{{ post.content }}
-		{% endfor %}
-		
-		{% for post in site.categories.role %}
-			<article>
-				<header>
-					<a name="{{post.id}}"></a>
-					<h3>{{ post.title}}</h3>
-					<p>Menlo Park, CA Headquarters</p>
-				</header>
+	<div class="content">
+		<section class="where-we-are">
+			<a name="where-we-are"></a>
+			<img width="734px" height="672px" src="/images/map.png"/>
+			<div class="vcard">
+			<p class="org">Quantifind<p>
+			<p class="adr">
+				<span class="street-address">100 Middlefield Road</span><br>
+				<span class="street-address">Suite 200</span><br>
+				<span class="locality">Menlo Park,</span> <abbr class="region" title="California">CA</abbr> <span class="postal-code">94025</span>
+			</p>
+			<p class="email">
+				<a href="mailto:info@quantifind.com">info@quantifind.com</a><br/>
+				<a target="_BLANK" href="https://maps.google.com/maps?q=100+Middlefield+Road+Menlo+Park,+CA+94025">Google Map</a>
+			</p>
+			</div>
+		</section>
+		<section>
+			<a name="who-we-are"></a>
+			{% for post in site.categories.who-we-are limit:1 %}
 				{{ post.content }}
-			</article>
-		{% endfor %}
-	</section>
+			{% endfor %}
+		</section>
+		<section>
+			<a name="work-with-us"></a>
+			{% for post in site.categories.work-with-us limit:1 %}
+				{{ post.content }}
+			{% endfor %}
+			
+			Current Openings:
+			<ul>
+			{% for post in site.categories.role %}
+				<li><a href="#{{post.id}}">{{ post.title}}</a></li>
+			{% endfor %}
+			</ul>
+			{% for post in site.categories.coming-soon limit:1 %}
+				{{ post.content }}
+			{% endfor %}
+			
+			{% for post in site.categories.role %}
+				<article>
+					<header>
+						<a name="{{post.id}}"></a>
+						<h3>{{ post.title}}</h3>
+						<p>Menlo Park, CA Headquarters</p>
+					</header>
+					{{ post.content }}
+				</article>
+			{% endfor %}
+		</section>
+	</div>
 	<footer>
 		Copyright © 2013 Quantifind, Inc. All Rights Reserved
 	</footer>
