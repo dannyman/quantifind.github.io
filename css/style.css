@@ -47,9 +47,8 @@ nav ul li{
 	width:170px;
 	margin-bottom:8px;
 	text-align:center;
-	padding:6px;
+	padding:4px 6px 8px 6px;
 	box-shadow:0 3px 10px #111;
-	text-shadow: 1px 1px 3px #111;
 	border:1px solid #444;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
@@ -60,6 +59,7 @@ nav ul li a{
 	color:#CACACA;
 	text-decoration:none;
 	font-size:10px;
+	letter-spacing: 2px;
 }
 nav.secondary-nav {
 	position:absolute;
@@ -73,6 +73,9 @@ nav.secondary-nav li {
 }
 nav.secondary-nav li.customer-login {
 	background-color:#939393;
+}
+nav.secondary-nav li.customer-login a {
+	color:#fff;
 }
 
 
