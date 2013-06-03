@@ -1,7 +1,8 @@
 body {
 	font-family: "proxima-nova", san-serif;
 	font-size:16px;
-	background-image: url(/images/dots.png);
+	b-ackground-image: url(/images/dots.svg);
+	background-color: #1E1B1C;
 	padding-left:288px;
 	background-attachment:fixed;
 }
@@ -64,7 +65,8 @@ nav ul li a{
 nav.secondary-nav {
 	position:absolute;
 	top:0;
-	right:0;
+	left:651px;
+	width:370px;
 }
 nav.secondary-nav li {
 	float:left;
