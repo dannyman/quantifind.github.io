@@ -110,12 +110,18 @@ section.where-we-are{
 }
 section.where-we-are .vcard{
 	position: relative;
-	top: -260px;
+	top: -264px;
 	left:3px;
 	color:#999;
 }
+section.where-we-are .vcard p{
+	margin:0;
+}
 section.where-we-are .vcard .org{
 	color:#8CC558;
+}
+section.where-we-are .vcard .email{
+	margin-top:22px;
 }
 
 
