@@ -79,6 +79,23 @@ nav.secondary-nav li.customer-login {
 nav.secondary-nav li.customer-login a {
 	color:#fff;
 }
+nav.secondary-nav li.tech-blog {
+	position:relative;
+	-moz-border-radius-bottomleft: 0;
+	webkit-border-bottom-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+nav.secondary-nav li.tech-blog:after {
+	content: "";
+	bottom: -20px;
+	left: -1px;
+	border-width: 20px 14px 0 0;
+	border-style: solid;
+	border-color: #414141 transparent;
+	display: block;
+	width: 0;
+	position:absolute;
+}
 
 
 .content{
