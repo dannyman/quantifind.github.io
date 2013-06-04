@@ -122,12 +122,12 @@ section strong{
 section.where-we-are{
 	background-color:transparent;
 	position:fixed;
-	top:30px;
+	top:29px;
 	left:250px;
 	z-index:-1;
 }
 section.where-we-are img{
-	margin-left: 46px;
+	margin-left: 44px;
 }
 section.where-we-are .vcard{
 	position: relative;

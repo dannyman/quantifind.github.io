@@ -33,7 +33,7 @@
 	<div class="content">
 		<section class="where-we-are">
 			<a name="where-we-are"></a>
-			<img width="726px" height="662px" src="/images/map.png"/>
+			<img src="/images/map.svg"/>
 			<div class="vcard">
 			<p class="org">Quantifind</p>
 			<p class="adr">
@@ -84,5 +84,18 @@
 	<footer>
 		Copyright © 2013 Quantifind, Inc. All Rights Reserved
 	</footer>
+	<script type="text/javascript">
+		(function initBrowserZoomFixForMap(){
+			var x;
+			var fixDotAlignment = function(){
+				x = x||document.querySelector(".where-we-are");
+				x.style.zoom=1;
+				var w = x.getBoundingClientRect().width;
+				if(w%1>=0.9){x.style.zoom=0.992}
+			}
+			window.addEventListener("load", fixDotAlignment, false);
+			window.onresize = fixDotAlignment;
+		})();
+	</script>
 </body>
 </head>
