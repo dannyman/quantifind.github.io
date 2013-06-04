@@ -1,10 +1,11 @@
 body {
 	font-family: "proxima-nova", san-serif;
 	font-size:16px;
-	b-ackground-image: url(/images/dots.svg);
+	background-image: url(/images/dots.svg);
 	background-color: #231F20;
 	padding-left:288px;
 	background-attachment:fixed;
+	background-position:5px 5px;
 }
 
 body > header {
@@ -121,9 +122,12 @@ section strong{
 section.where-we-are{
 	background-color:transparent;
 	position:fixed;
-	top:28px;
+	top:30px;
 	left:250px;
 	z-index:-1;
+}
+section.where-we-are img{
+	margin-left: 46px;
 }
 section.where-we-are .vcard{
 	position: relative;
