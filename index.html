@@ -85,16 +85,34 @@
 		Copyright © 2013 Quantifind, Inc. All Rights Reserved
 	</footer>
 	<script type="text/javascript">
-		(function initBrowserZoomFixForMap(){
-			var x;
+		(function init(){
+			var mapContainer,
+				mapZeroOpacityOffset = 800;
+			
 			var fixDotAlignment = function(){
-				x = x||document.querySelector(".where-we-are");
-				x.style.zoom=1;
-				var w = x.getBoundingClientRect().width;
-				if(w%1>=0.9){x.style.zoom=0.992}
-			}
-			window.addEventListener("load", fixDotAlignment, false);
-			window.onresize = fixDotAlignment;
+				mapContainer.style.zoom=1;
+				var w = mapContainer.getBoundingClientRect().width;
+				if(w%1>=0.9){mapContainer.style.zoom=0.992}
+			};
+			
+			var between0and1 = function(val){return Math.max(Math.min(1,val),0)}
+			
+			var fadeMapByScrollPosition = function(){
+				var t = window.pageYOffset/mapZeroOpacityOffset;
+				var d = 1;
+				var root =  Math.pow(1-(t / d), 3);
+				var result = root;
+				mapContainer.style.opacity = between0and1(result);
+			};
+			
+			window.addEventListener("load", function(){
+				mapContainer = document.querySelector(".where-we-are");
+				mapZeroOpacityOffset = window.getComputedStyle(mapContainer).height.match(/\d*/)*1
+				fixDotAlignment();
+				window.onresize = fixDotAlignment;
+				fadeMapByScrollPosition();
+				window.onscroll = fadeMapByScrollPosition;
+			}, false);
 		})();
 	</script>
 </body>
