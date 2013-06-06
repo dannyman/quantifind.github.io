@@ -127,7 +127,9 @@
 			var mapContainer,
 				logoText,
 				logoTagline,
-				mapZeroOpacityOffset = 800;
+				mapZeroOpacityOffset = 800,
+				requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                              window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 			
 			var fixDotAlignment = function(){
 				mapContainer.style.zoom=1;
