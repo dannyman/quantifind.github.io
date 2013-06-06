@@ -92,7 +92,7 @@ nav.primary-nav {
 }
 nav.secondary-nav {
 	position:absolute;
-	top:0;
+	top:14px;
 	left:705px;
 	width:370px;
 }
