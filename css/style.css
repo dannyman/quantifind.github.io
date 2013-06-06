@@ -18,6 +18,10 @@ body > header {
 	margin-top: 93px;
 }
 
+body .content{
+	position:relative;
+}
+
 body .content,  body nav{
 	opacity:1;
 	transition: opacity .45s ease-in-out;
