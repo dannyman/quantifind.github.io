@@ -135,13 +135,16 @@
 				logoText,
 				logoTagline,
 				mapZeroOpacityOffset = 800,
-				requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
-                              window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+				requestAnimationFramePolyFill = function(fn){
+					window.setTimeout(function(){
+						fn(Date.now());
+					},1);
+				},
+				requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame||requestAnimationFramePolyFill;
 			
 			
 			var openComingSoonMailToLinksInANewWindow = function(){
 				var links = document.querySelectorAll(".job-list a");
-				console.log(links);
 				for(var i in links){
 					links[i].setAttribute && links[i].setAttribute("target","_BLANK");
 				}
