@@ -143,6 +143,8 @@ section {
 	font-size:16px;
 	font-weight: 100;
 	line-height: 22px;
+	position:relative;
+	z-index:1;
 }
 section strong{
 	color:#000;
@@ -152,7 +154,7 @@ section.where-we-are{
 	position:fixed;
 	top:29px;
 	left:250px;
-	z-index:-1;
+	z-index:0;
 }
 section.where-we-are img{
 	margin-left: 44px;
