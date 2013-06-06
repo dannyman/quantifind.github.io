@@ -178,12 +178,8 @@
 						var progress = (tick-startTick);
 						var opacity = easeInOutQuad(progress, 0, 1, perDotDuration);
 						circles[i].style.opacity=opacity;
-						if(i==9){
-							console.log(tick, startTick, endTick, progress,perDotDuration, opacity );
-						}
 					}
 				  };
-				  console.log(tick)
 				  if (tick < duration) {
 					requestAnimationFrame(step);
 				  }else{
@@ -204,7 +200,6 @@
 			};
 			var translateElement = function(elem, x){
 				var margin =  x<0?"marginLeft":"marginRight";
-				console.log(elem, x, margin);
 				elem.style[margin]="-"+Math.abs(x)+"px";
 			};
 			
@@ -235,6 +230,8 @@
 				document.body.className = document.body.className.replace("reveal","");
 			};
 			
+			
+			
 			window.addEventListener("load", function(){
 				mapContainer = document.querySelector(".where-we-are");
 				logoText = document.getElementById('logo-text');
@@ -250,8 +247,14 @@
 				logoTagline.style.opacity=0;
 				runLogoAnimation(function(){runLogoTextAnimation(fadeInContent)});
 			}, false);
+			
+b			
+			if(window.location.hash===""||window.location.hash==="#"){
+				document.body.className+="reveal";
+			}
+		
 		})();
-		document.body.className+="reveal";
+		
 	</script>
 </body>
 </head>
