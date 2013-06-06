@@ -174,6 +174,39 @@ section.where-we-are .vcard .org{
 section.where-we-are .vcard .email{
 	margin-top:22px;
 }
+ 
+
+ 
+.work-with-us {
+	font-size:14px;
+	line-height:18px;
+}
+.work-with-us>header{
+	font-size:16px;
+	line-height:22px;
+	margin-bottom:30px;
+}
+.work-with-us header p{
+	margin:0;
+}
+
+.current-openings{
+	color:#000;
+}
+ 
+.post-title {
+	color: #8CC558;
+	font-weight: bold;
+	font-size:14px;
+	margin-bottom:0;
+}
+.post-title:before {
+	content:"Role ";
+	color:#000;
+}
+.post-location {
+	margin-top:0;
+}
 
 
 .ir{

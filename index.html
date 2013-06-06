@@ -80,7 +80,7 @@
 				<span class="locality">Menlo Park,</span> <abbr class="region" title="California">CA</abbr> <span class="postal-code">94025</span>
 			</p>
 			<p class="email">
-				<a href="mailto:info@quantifind.com">info@quantifind.com</a><br/>
+				<a target="_BLANK"  href="mailto:info@quantifind.com">info@quantifind.com</a><br/>
 				<a target="_BLANK" href="https://maps.google.com/maps?q=100+Middlefield+Road+Menlo+Park,+CA+94025">Google Map</a>
 			</p>
 			</div>
@@ -91,30 +91,37 @@
 				{{ post.content }}
 			{% endfor %}
 		</section>
-		<section>
+		<section class="work-with-us">
 			<a name="work-with-us"></a>
+			<header>
 			{% for post in site.categories.work-with-us limit:1 %}
 				{{ post.content }}
 			{% endfor %}
+			</header>
 			
-			Current Openings:
-			<ul>
-			{% for post in site.categories.role %}
-				<li><a href="#{{post.id}}">{{ post.title}}</a></li>
-			{% endfor %}
-			</ul>
-			{% for post in site.categories.coming-soon limit:1 %}
-				{{ post.content }}
-			{% endfor %}
+			<p class="current-openings">Current Openings:</p>
+			<div class="job-list">
+				<ul>
+				{% for post in site.categories.role %}
+					<li><a href="#{{post.id}}">{{ post.title}}</a></li>
+				{% endfor %}
+				</ul>
+				{% for post in site.categories.coming-soon limit:1 %}
+					{{ post.content }}
+				{% endfor %}
+			</div>
 			
 			{% for post in site.categories.role %}
-				<article>
+				<article class="job-post">
 					<header>
 						<a name="{{post.id}}"></a>
-						<h3>{{ post.title}}</h3>
-						<p>Menlo Park, CA Headquarters</p>
+						<h3 class="post-title">{{ post.title}}</h3>
+						<p class="post-location">Menlo Park, CA Headquarters</p>
 					</header>
 					{{ post.content }}
+					<footer>
+						<p>Ready to join our team? <a target="_BLANK" href="mailto:jobs@quantifind.com?subject=Re:{{ post.title}}">Send us your resume.</a></p>
+					</footer>
 				</article>
 			{% endfor %}
 		</section>
@@ -130,6 +137,16 @@
 				mapZeroOpacityOffset = 800,
 				requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
                               window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+			
+			
+			var openComingSoonMailToLinksInANewWindow = function(){
+				var links = document.querySelectorAll(".job-list a");
+				console.log(links);
+				for(var i in links){
+					links[i].setAttribute && links[i].setAttribute("target","_BLANK");
+				}
+			}
+			
 			
 			var fixDotAlignment = function(){
 				mapContainer.style.zoom=1;
@@ -232,9 +249,8 @@
 				document.body.className = document.body.className.replace("reveal","");
 			};
 			
-			
-			
 			window.addEventListener("load", function(){
+				openComingSoonMailToLinksInANewWindow();
 				mapContainer = document.querySelector(".where-we-are");
 				logoText = document.getElementById('logo-text');
 				logoTagline = document.getElementById('logo-tagline');
