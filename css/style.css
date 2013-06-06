@@ -14,6 +14,25 @@ body > header {
 	left:0;
 	width:290px;
 	height:100%;
+	text-align:center;
+	margin-top: 93px;
+}
+
+body .content,  body nav{
+	opacity:1;
+	transition: opacity .45s ease-in-out;
+   -moz-transition: opacity .45s ease-in-out;
+   -webkit-transition: opacity .45s ease-in-out;
+}
+body.reveal .content,  body.reveal nav{
+	opacity:0;
+	transition: none;
+   -moz-transition: none;
+   -webkit-transition: none;
+}
+
+#logo{
+	margin-right:-3px;
 }
 
 a {
@@ -33,6 +52,7 @@ h1 span {
 
 h1 span:nth-child(1) {
 	background-image: url(/images/quantifind.png);
+	display:none;
 }
 h1 span:nth-child(2) {
 	background-image: url(/images/knowledge.png);
@@ -44,9 +64,13 @@ nav ul{
 nav a:active, nav a:hover, nav a:link{
 	text-decoration:none;
 }
+nav ul{
+	margin:0;padding:0;
+}
 nav ul li{
 	background-color:#414141;
 	width:170px;
+	margin:0 auto;
 	margin-bottom:8px;
 	text-align:center;
 	padding:4px 6px 8px 6px;
@@ -62,6 +86,9 @@ nav ul li a{
 	text-decoration:none;
 	font-size:10px;
 	letter-spacing: 2px;
+}
+nav.primary-nav {
+	margin-top:100px;
 }
 nav.secondary-nav {
 	position:absolute;

@@ -12,23 +12,21 @@
 </head>
 <body>
 	<header>
-		<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="165px" height="162px" viewBox="-38.5 -37 165 162" enable-background="new -38.5 -37 165 162" xml:space="preserve">
+		<svg id="logo" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="200px" height="162px" viewBox="-38.5 -37 165 162" enable-background="new -38.5 -37 165 162" xml:space="preserve">
 				<g>
 					<g>
-						<circle id="dot" fill="#231F20" cx="87.75" cy="60.7" r="10"/>
-						<circle fill="#231F20" cx="43.75" cy="16.7" r="10"/>
-						<circle fill="#FFFFFF" cx="43.75" cy="-27.3" r="9.5"/>
-						<circle fill="#FFFFFF" cx="21.75" cy="-5.3" r="9.5"/>
-						<circle fill="#FFFFFF" cx="-0.25" cy="16.7" r="9.5"/>
-						<circle fill="#8DC63F" cx="43.75" cy="16.7" r="9"/>
-						<circle fill="#FFFFFF" cx="21.75" cy="38.7" r="9.5"/>
-						<circle fill="#FFFFFF" cx="43.75" cy="60.7" r="9.5"/>
 						<circle fill="#FFFFFF" cx="65.75" cy="-5.3" r="9.5"/>
+						<circle fill="#FFFFFF" cx="43.75" cy="-27.3" r="9.5"/>
 						<circle fill="#FFFFFF" cx="87.75" cy="16.7" r="9.5"/>
 						<circle fill="#FFFFFF" cx="65.75" cy="38.7" r="9.5"/>
-						<circle fill="#8DC63F" cx="87.75" cy="60.7" r="9"/>
+						<circle fill="#FFFFFF" cx="43.75" cy="60.7" r="9.5"/>
+						<circle fill="#FFFFFF" cx="21.75" cy="38.7" r="9.5"/>
+						<circle fill="#FFFFFF" cx="-0.25" cy="16.7" r="9.5"/>
+						<circle fill="#FFFFFF" cx="21.75" cy="-5.3" r="9.5"/>
+						<circle fill="#8DC63F" cx="43.75" cy="16.7" r="9.5" stroke="#231F20" stroke-width="1" stroke-opacity="0.6"/>
+						<circle fill="#8DC63F" cx="87.75" cy="60.7" r="9.5" stroke="#231F20" stroke-width="1" stroke-opacity="0.6"/>
 					</g>
-					<g>
+					<g id="logo-text" >
 						<path fill="#FFFFFF" d="M-24.188,122.615c-1.424,1.081-3.473,1.704-5.217,1.704c-4.942,0-9.029-3.954-9.029-8.94
 							c0-4.966,4.087-8.985,9.029-8.985c5.008,0,9.033,4.065,9.033,9.031c0,2.415-0.873,4.366-2.507,6.113l2.599,2.643h-2.462
 							L-24.188,122.615z M-24.208,120.158c1.283-1.355,1.904-2.94,1.904-4.801c0-3.953-3.124-7.172-7.101-7.172
@@ -54,9 +52,9 @@
 			</svg>
 		<h1 class="ir">
 			<span>Quantifind</span>
-			<span>The Knowledge to Act</span>
+			<span id="logo-tagline">The Knowledge to Act</span>
 		</h1>
-		<nav>
+		<nav class="primary-nav">
 			<ul>
 				<li><a href="#where-we-are">Where We Are</a></li>
 				<li><a href="#who-we-are">Who We Are</a></li>
@@ -127,6 +125,8 @@
 	<script type="text/javascript">
 		(function init(){
 			var mapContainer,
+				logoText,
+				logoTagline,
 				mapZeroOpacityOffset = 800;
 			
 			var fixDotAlignment = function(){
@@ -145,15 +145,113 @@
 				mapContainer.style.opacity = between0and1(result);
 			};
 			
+			
+			var easeInOutQuad = function(t, b, c, d){
+				t /= d/2;
+				if (t < 1) return c/2*t*t + b;
+				t--;
+				return -c/2 * (t*(t-2) - 1) + b;
+			}
+			var easeInQuad = function (t, b, c, d) {
+				t /= d;
+				return c*t*t + b;
+			};
+			
+			
+			var runLogoAnimation = function(onDone){
+				var start;
+				var circles = document.querySelectorAll('svg#logo circle');
+				var duration=2100;
+				var overlapFactorA = 4.8;
+				var overlapFactorB = overlapFactorA-1;
+				var perDotDuration=overlapFactorA*duration/(overlapFactorB+circles.length);
+				var perDotOffset=perDotDuration/overlapFactorA;
+				
+				function step(timestamp) {
+				  if(typeof start==="undefined"){start=timestamp}
+				  var tick = timestamp - start;
+				  for(var i=0; i<circles.length; i++){
+					var easedOffset = easeInQuad(i+1, 0, perDotOffset*circles.length, circles.length)
+					var startTick = easedOffset;
+					var endTick = startTick+perDotDuration;
+					if(tick>=startTick && tick<=endTick){
+						var progress = (tick-startTick);
+						var opacity = easeInOutQuad(progress, 0, 1, perDotDuration);
+						circles[i].style.opacity=opacity;
+						if(i==9){
+							console.log(tick, startTick, endTick, progress,perDotDuration, opacity );
+						}
+					}
+				  };
+				  console.log(tick)
+				  if (tick < duration) {
+					requestAnimationFrame(step);
+				  }else{
+					for(var i=0; i<circles.length; i++){
+						circles[i].style.opacity=1;
+					}
+					onDone && onDone();
+				  }
+				}
+				for(var i=0; i<circles.length; i++){
+					circles[i].style.opacity=0;
+				}
+				requestAnimationFrame(step);
+			};
+			
+			var translateSVG = function(elem, x,y){
+				elem.setAttribute("transform","translate("+(x||0)+","+(y||0)+")");
+			};
+			var translateElement = function(elem, x){
+				var margin =  x<0?"marginLeft":"marginRight";
+				console.log(elem, x, margin);
+				elem.style[margin]="-"+Math.abs(x)+"px";
+			};
+			
+			
+			var runLogoTextAnimation = function(onDone){
+				var start;
+				var duration=800;
+				function step(timestamp) {
+					if(typeof start==="undefined"){start=timestamp}
+					var tick = timestamp - start;
+					var pos = Math.round(easeInOutQuad(tick, 0, 10, duration));
+					translateSVG(logoText, -10+pos);
+					translateElement(logoTagline, 10-pos);
+					logoText.style.opacity=pos/10;
+					logoTagline.style.opacity=pos/10;
+					if (tick < duration) {
+						requestAnimationFrame(step);
+					}else{
+						translateSVG(logoText, 0);
+						logoText.style.opacity=1;
+						onDone && onDone();
+					}
+				}
+				requestAnimationFrame(step);
+			};
+			
+			var fadeInContent = function(){
+				document.body.className = document.body.className.replace("reveal","");
+			};
+			
 			window.addEventListener("load", function(){
 				mapContainer = document.querySelector(".where-we-are");
+				logoText = document.getElementById('logo-text');
+				logoTagline = document.getElementById('logo-tagline');
 				mapZeroOpacityOffset = window.getComputedStyle(mapContainer).height.match(/\d*/)*1
 				fixDotAlignment();
 				window.onresize = fixDotAlignment;
 				fadeMapByScrollPosition();
 				window.onscroll = fadeMapByScrollPosition;
+				translateSVG(logoText, -10);
+				translateElement(logoTagline, 10);
+				logoText.style.opacity=0;
+				logoTagline.style.opacity=0;
+				runLogoAnimation(function(){runLogoTextAnimation(fadeInContent)});
 			}, false);
 		})();
+		document.body.className+="reveal";
 	</script>
 </body>
 </head>
