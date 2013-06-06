@@ -233,14 +233,15 @@
 					if(typeof start==="undefined"){start=timestamp}
 					var tick = timestamp - start;
 					var pos = Math.round(easeInOutQuad(tick, 0, 10, duration));
-					translateSVG(logoText, -10+pos);
-					translateElement(logoTagline, 10-pos);
+					//translateSVG(logoText, -10+pos);
+					//translateElement(logoTagline, 10-pos);
 					logoText.style.opacity=pos/10;
 					logoTagline.style.opacity=pos/10;
 					if (tick < duration) {
 						requestAnimationFrame(step);
 					}else{
-						translateSVG(logoText, 0);
+						//translateSVG(logoText, 0);
+						//translateElement(logoTagline, 0);
 						logoText.style.opacity=1;
 						onDone && onDone();
 					}
@@ -262,8 +263,8 @@
 				window.onresize = fixDotAlignment;
 				fadeMapByScrollPosition();
 				window.onscroll = fadeMapByScrollPosition;
-				translateSVG(logoText, -10);
-				translateElement(logoTagline, 10);
+				//translateSVG(logoText, -10);
+				//translateElement(logoTagline, 10);
 				logoText.style.opacity=0;
 				logoTagline.style.opacity=0;
 				runLogoAnimation(function(){runLogoTextAnimation(fadeInContent)});
