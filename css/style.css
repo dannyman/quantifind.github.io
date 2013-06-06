@@ -16,6 +16,7 @@ body > header {
 	height:100%;
 	text-align:center;
 	margin-top: 93px;
+	z-index:1;
 }
 
 body .content{
