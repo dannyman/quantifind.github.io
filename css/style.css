@@ -93,10 +93,10 @@ nav.primary-nav {
 	margin-top:100px;
 }
 nav.secondary-nav {
-	position:absolute;
-	top:14px;
-	left:705px;
-	width:370px;
+	position: absolute;
+	top: 14px;
+	left: 764px;
+	width: 305px;
 }
 nav.secondary-nav li {
 	float:left;
