@@ -140,7 +140,8 @@
 						fn(Date.now());
 					},1);
 				},
-				requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame||requestAnimationFramePolyFill;
+				requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame||requestAnimationFramePolyFill,
+				cancelAnimationFrame = window.cancelAnimationFrame || window.webkitCancelAnimationFrame || window.mozCancelAnimationFrame || window.oCancelAnimationFrame || function(id){window.clearTimeout(id);};
 			
 			
 			var openComingSoonMailToLinksInANewWindow = function(){
@@ -160,11 +161,14 @@
 			var between0and1 = function(val){return Math.max(Math.min(1,val),0)}
 			
 			var fadeMapByScrollPosition = function(){
-				var t = window.pageYOffset/mapZeroOpacityOffset;
-				var d = 1;
-				var root =  Math.pow(1-(t / d), 3);
-				var result = root;
-				mapContainer.style.opacity = between0and1(result);
+				var y = currentOffset();
+				if(y>0){
+					var t = y/mapZeroOpacityOffset;
+					var d = 1;
+					var root =  Math.pow(1-(t / d), 3);
+					var result = root;
+					mapContainer.style.opacity = between0and1(result);
+				}
 			};
 			
 			
@@ -217,15 +221,6 @@
 				requestAnimationFrame(step);
 			};
 			
-			var translateSVG = function(elem, x,y){
-				elem.setAttribute("transform","translate("+(x||0)+","+(y||0)+")");
-			};
-			var translateElement = function(elem, x){
-				var margin =  x<0?"marginLeft":"marginRight";
-				elem.style[margin]="-"+Math.abs(x)+"px";
-			};
-			
-			
 			var runLogoTextAnimation = function(onDone){
 				var start;
 				var duration=800;
@@ -233,15 +228,11 @@
 					if(typeof start==="undefined"){start=timestamp}
 					var tick = timestamp - start;
 					var pos = Math.round(easeInOutQuad(tick, 0, 10, duration));
-					//translateSVG(logoText, -10+pos);
-					//translateElement(logoTagline, 10-pos);
 					logoText.style.opacity=pos/10;
 					logoTagline.style.opacity=pos/10;
 					if (tick < duration) {
 						requestAnimationFrame(step);
 					}else{
-						//translateSVG(logoText, 0);
-						//translateElement(logoTagline, 0);
 						logoText.style.opacity=1;
 						onDone && onDone();
 					}
@@ -253,7 +244,76 @@
 				document.body.className = document.body.className.replace("reveal","");
 			};
 			
+			
+			var offsetTop = function (elem) {
+				var gy = elem.offsetTop
+				if (elem.offsetParent) while (elem = elem.offsetParent) gy += elem.offsetTop
+				return gy
+			}
+			
+			var currentOffset = function(){
+				return (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+			}
+			
+			function docHeight() {
+				return Math.max(
+					Math.max(document.body.scrollHeight, document.documentElement.scrollHeight),
+					Math.max(document.body.offsetHeight, document.documentElement.offsetHeight),
+					Math.max(document.body.clientHeight, document.documentElement.clientHeight)
+				);
+			}
+
+			window.x = easeInOutQuad;
+			var animateScroll = function(elem){
+				_animateScrollEvt && cancelAnimationFrame(_animateScrollEvt);
+				var start;
+				var duration=600;
+				var topBuffer=40;
+				
+				var startY = currentOffset();
+				var endY = offsetTop(elem)-topBuffer;
+				endY = Math.min(endY, docHeight() - window.innerHeight);
+				
+				function step(timestamp) {
+					if(typeof start==="undefined"){start=timestamp}
+					var from = Math.min(startY, endY);
+					var to = Math.max(startY, endY);
+					var tick = timestamp - start;
+					var currentTick = startY<=endY?tick:Math.max(0,duration-tick);
+					var delta = easeInOutQuad(currentTick, 0, 1, duration);
+					var y = from + (to-from)*delta;
+					window.scrollTo(0,Math.round(y))
+					if (tick <= duration) {
+						_animateScrollEvt = requestAnimationFrame(step);
+					}
+				}
+				_animateScrollEvt = requestAnimationFrame(step);
+			};
+			var _animateScrollEvt;
+			
+			var disableScrollToTargetEvent = function(){
+				var links = document.querySelectorAll("a[href]");
+				for(var i in links){
+					var link = links[i];
+					if(link.getAttribute){
+						var href = ""+link.getAttribute("href");
+						if(href.indexOf('#')===0){
+							link.onclick=(function(href){return function(){
+								history && history.pushState && history.pushState(null, null, href);
+								var a = href.replace(/^#/,"");
+								animateScroll(document.querySelector("a[name='"+a+"']"));
+								window.location.hash=href;
+								return false;
+							}})(href);
+						}
+					}
+					
+				}
+			};
+			
+			
 			window.addEventListener("load", function(){
+				disableScrollToTargetEvent();
 				openComingSoonMailToLinksInANewWindow();
 				mapContainer = document.querySelector(".where-we-are");
 				logoText = document.getElementById('logo-text');
@@ -263,8 +323,6 @@
 				window.onresize = fixDotAlignment;
 				fadeMapByScrollPosition();
 				window.onscroll = fadeMapByScrollPosition;
-				//translateSVG(logoText, -10);
-				//translateElement(logoTagline, 10);
 				logoText.style.opacity=0;
 				logoTagline.style.opacity=0;
 				runLogoAnimation(function(){runLogoTextAnimation(fadeInContent)});
@@ -274,9 +332,17 @@
 			if(window.location.hash===""||window.location.hash==="#"){
 				document.body.className+="reveal";
 			}
+			
+			window.onhashchange = function(){
+				var a = window.location.hash.replace(/^#/,"");
+				return false;
+			};
 		
 		})();
 		
+		
+		
 	</script>
+	
 </body>
 </head>
