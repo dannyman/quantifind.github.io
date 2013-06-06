@@ -161,15 +161,19 @@
 			var between0and1 = function(val){return Math.max(Math.min(1,val),0)}
 			
 			var fadeMapByScrollPosition = function(){
+				_delayedZeroFade && window.clearTimeout(_delayedZeroFade);
 				var y = currentOffset();
-				if(y>0){
+				if(y!==0){
 					var t = y/mapZeroOpacityOffset;
 					var d = 1;
 					var root =  Math.pow(1-(t / d), 3);
 					var result = root;
 					mapContainer.style.opacity = between0and1(result);
+				}else{
+					_delayedZeroFade = window.setTimeout(fadeMapByScrollPosition,20);
 				}
 			};
+			var _delayedZeroFade;
 			
 			
 			var easeInOutQuad = function(t, b, c, d){
@@ -333,10 +337,6 @@
 				document.body.className+="reveal";
 			}
 			
-			window.onhashchange = function(){
-				var a = window.location.hash.replace(/^#/,"");
-				return false;
-			};
 		
 		})();
 		
