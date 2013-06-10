@@ -6,10 +6,11 @@ body {
 	font-size:16px;
 	background-image: url(/images/dots.svg);
 	background-color: #231F20;
-	background-attachment:fixed;
+	b-ackground-attachment:fixed;
 	background-position:5px 5px;
 	min-width:1100px;
 }
+
 
 body > header {
 	position:absolute;
@@ -19,6 +20,10 @@ body > header {
 	text-align:center;
 	margin-top: 93px;
 	z-index:1;
+}
+
+#logo-container{
+	margin-bottom:100px;
 }
 
 body .content{
@@ -96,34 +101,34 @@ nav ul li a{
 	line-height: 2.8em;
 	display:block;
 }
-nav.primary-nav {
-	margin-top:100px;
+nav#primary-nav {
+	position:relative
 }
-nav.secondary-nav {
+nav#secondary-nav {
 	position: absolute;
 	top: 14px;
 	left: 764px;
 	width: 305px;
 	z-index:1;
 }
-nav.secondary-nav li {
+nav#secondary-nav li {
 	float:left;
 	width:130px;
 	margin:0 10px;
 }
-nav.secondary-nav li.customer-login {
+nav#secondary-nav li.customer-login {
 	background-color:#939393;
 }
-nav.secondary-nav li.customer-login a {
+nav#secondary-nav li.customer-login a {
 	color:#fff;
 }
-nav.secondary-nav li.tech-blog {
+nav#secondary-nav li.tech-blog {
 	position:relative;
 	-moz-border-radius-bottomleft: 0;
 	webkit-border-bottom-left-radius: 0;
 	border-bottom-left-radius: 0;
 }
-nav.secondary-nav li.tech-blog:after {
+nav#secondary-nav li.tech-blog:after {
 	content: "";
 	bottom: -20px;
 	left: -1px;
