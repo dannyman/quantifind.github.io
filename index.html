@@ -5,14 +5,14 @@
 <html lang="en-US">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=1100, initial-scale=1, maximum-scale=1">
+	<meta name="viewport" content="width=1100, initial-scale=1">
 	<title>Quantifind - The Knowledge to Act</title>
 	<link rel="stylesheet" href="/css/normalize.css"></link>
 	<link rel="stylesheet" href="/css/proxima.css"></link>
 	<link rel="stylesheet" href="/css/style.css"></link>
 </head>
 <body>
-	<header>
+	<header id="header">
 		<svg id="logo" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="200px" height="162px" viewBox="-38.5 -37 165 162" enable-background="new -38.5 -37 165 162" xml:space="preserve">
 				<g>
 					<g>
@@ -71,7 +71,7 @@
 	</nav>
 	<a name="where-we-are"></a>
 	<div class="content">
-		<section class="where-we-are">
+		<section id="map-container" class="where-we-are">
 			<img src="/images/map.svg"/>
 			<div class="vcard">
 			<p class="org">Quantifind</p>
@@ -127,14 +127,16 @@
 			{% endfor %}
 		</section>
 	</div>
-	<footer>
+	<footer id="footer">
 		Copyright © 2013 Quantifind, Inc. All Rights Reserved
 	</footer>
 	<script type="text/javascript">
 		(function init(){
 			var mapContainer,
+				logoContainer,
 				logoText,
 				logoTagline,
+				footer,
 				mapZeroOpacityOffset = 800,
 				requestAnimationFramePolyFill = function(fn){
 					window.setTimeout(function(){
@@ -152,6 +154,21 @@
 				}
 			}
 			
+			var scrollLogo = function(){
+				var y = currentOffset();
+				var logoHeight = logoContainer.getBoundingClientRect().height;
+				var maxY = offsetTop(footer)-logoHeight;
+				y = Math.min(y, maxY);
+				logoContainer.style.marginTop = viewportHeight()<logoHeight+offsetTop(logoContainer)?"46px":null;
+				logoContainer.style.top=y+"px";
+				
+			};
+			var scrollMap = function(){
+				var y = currentOffset();
+				var maxY = offsetTop(footer)-(mapContainer.getBoundingClientRect().height);
+				y = Math.min(y, maxY);
+				mapContainer.style.top=y+"px";
+			};
 			
 			var fixDotAlignment = function(){
 				mapContainer.style.zoom=1;
@@ -263,6 +280,10 @@
 				return (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
 			}
 			
+			var viewportHeight = function(){
+				return window.innerHeight;
+			}
+			
 			function docHeight() {
 				return Math.max(
 					Math.max(document.body.scrollHeight, document.documentElement.scrollHeight),
@@ -323,18 +344,29 @@
 			window.addEventListener("load", function(){
 				disableScrollToTargetEvent();
 				openComingSoonMailToLinksInANewWindow();
-				mapContainer = document.querySelector(".where-we-are");
+				mapContainer = document.getElementById("map-container");
+				logoContainer = document.getElementById("header");
 				logoText = document.getElementById('logo-text');
 				logoTagline = document.getElementById('logo-tagline');
+				footer = document.getElementById("footer");
 				mapZeroOpacityOffset = window.getComputedStyle(mapContainer).height.match(/\d*/)*1
 				fixDotAlignment();
 				window.onresize = fixDotAlignment;
-				fadeMapByScrollPosition();
-				window.onscroll = fadeMapByScrollPosition;
+				scrollElements();
+				window.addEventListener("gesturechange", scrollElements, false);
+				window.onscroll = scrollElements;
 				logoText.style.opacity=0;
 				logoTagline.style.opacity=0;
 				runLogoAnimation(function(){runLogoTextAnimation(fadeInContent)});
 			}, false);
+			
+			var scrollElements = function(){
+				scrollLogo();
+				if(!/Android.*Chrome/.test(window.navigator.userAgent) && !/i(Phone)|(Pad)|(Pod)/.test(window.navigator.userAgent)){
+					scrollMap();
+					fadeMapByScrollPosition();
+				}
+			}
 			
 			
 			if(window.location.hash===""||window.location.hash==="#"){
