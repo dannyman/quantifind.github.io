@@ -395,6 +395,8 @@
 				logoText.style.opacity=0;
 				logoTagline.style.opacity=0;
 				runLogoAnimation(function(){runLogoTextAnimation(fadeInContent)});
+				var hashElem = document.querySelector("a[name='"+window.location.hash.replace(/^#/,"")+"']");
+				hashElem && animateScroll(hashElem);
 			}, false);
 			
 			var scrollElements = function(){
