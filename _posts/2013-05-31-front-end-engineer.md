@@ -8,7 +8,7 @@ Having leaders in Data Science, Software Engineering, and Design are the three k
  
 Desired skills include:
 * Strong HTML5, CSS3 and JavaScript skills
-* Cool frameworks like Angular.js, Backbone.js, Undersocre.js, etc.
+* Cool frameworks like Angular.js, Backbone.js, Underscore.js, etc.
 * Data visualization experience using D3.js, SVG, Canvas, etc.
 * Web app experience with Grails, Rails, Node.js, PhantomJS or a similar platform.
 * Version control experience in Git or a similar system.
