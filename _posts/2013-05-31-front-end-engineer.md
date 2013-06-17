@@ -1,6 +1,7 @@
 ---
 category: role
-title: Software Engineering | Front End (All Levels)
+team: Software Engineering
+title: Front End (All Levels)
 ---
  
 We’re on the lookout for front end engineers to help us build products that are on the cutting edge of usability, interaction and design. Ideal candidates should be comfortable taking ownership of their work and effectively searching for innovative solutions to the complex problems we encounter. You will be working in a high-communication environment where collaboration with the Design, Data Science and Back-End Engineering teams is effortlessly realized on a day-to-day basis in order to build world class software products. 

@@ -207,8 +207,12 @@ section.where-we-are .vcard .email{
 	margin:0;
 }
 
-.current-openings{
+.current-openings, .coming-soon{
 	color:#000;
+}
+
+.job-post {
+	margin-top:20px;
 }
  
 .post-title {
@@ -217,8 +221,7 @@ section.where-we-are .vcard .email{
 	font-size:14px;
 	margin-bottom:0;
 }
-.post-title:before {
-	content:"Role ";
+.post-title span {
 	color:#000;
 }
 .post-location {

@@ -122,9 +122,12 @@
 			<div class="job-list">
 				<ul>
 				{% for post in site.categories.role %}
-					<li><a href="#{{post.id}}">{{ post.title}}</a></li>
+					<li>{{post.team}}  <a href="#{{post.id}}">{{ post.title}}</a></li>
 				{% endfor %}
 				</ul>
+			</div>
+			<p class="coming-soon">Coming Soon:</p>
+			<div class="job-list">
 				{% for post in site.categories.coming-soon limit:1 %}
 					{{ post.content }}
 				{% endfor %}
@@ -134,7 +137,7 @@
 				<article class="job-post">
 					<header>
 						<a name="{{post.id}}"></a>
-						<h3 class="post-title">{{ post.title}}</h3>
+						<h3 class="post-title"><span>{{post.team}}</span> {{ post.title}}</h3>
 						<p class="post-location">Menlo Park, CA Headquarters</p>
 					</header>
 					{{ post.content }}
