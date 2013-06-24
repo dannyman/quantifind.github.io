@@ -160,6 +160,7 @@
 				logoTagline,
 				footer,
 				primaryNav,
+				hasVisitedCookie = "qf_visited=1",
 				mapZeroOpacityOffset = 800,
 				requestAnimationFramePolyFill = function(fn){
 					window.setTimeout(function(){
@@ -427,9 +428,13 @@
 				}
 			}
 			
-			
-			if(window.location.hash===""||window.location.hash==="#"){
+			var hasVisited  = document.cookie.indexOf("qf_visited=1")>=0;
+			if(!hasVisited && (window.location.hash==="" || window.location.hash==="#" )){
 				document.body.className+="reveal";
+			}
+			if(hasVisited===false){
+				console.log(hasVisitedCookie)
+				document.cookie=hasVisitedCookie;
 			}
 			
 		})();
